@@ -50,7 +50,11 @@ Notifie à Laravel qu'on veut utiliser d'autres langues
 ## php artisan make:migration add_user_id_and_message_to_chirps
 Exactement ce que tu dis la ligne, ajout les colonnes user_id et message à la table chirps
 
-## hp artisan migrate:rollback
+## php artisan migrate:rollback
+
+## php artisan make:policy ChirpPolicy --model=Chirp
+
+Permet de créer une Policie nommée ChirpPolicy en rapport  avec le model Chirp
 
 ## Il existe deux types de composants
 Les composants sous forme de classe et ceux anonymes.
@@ -68,6 +72,8 @@ Les composants sous forme de classe et ceux anonymes.
  `session()` : fonction qui récupère les données de session 
  `setLocale()` : fonction qui change la langue de l'application
 
+ `auth()->user()`: permet de récupérer l'utilisateur connecté
+
  ## La Masse assignation
  La mass assignation est une technique qui permet de définir plusieurs attributs d'un media en une seule fois. 
  Par exemple, imaginez que vous avez un modèle  `Utlilsateur` avec des champs tels que `nom`, `email`, et `rôle` . 
@@ -76,3 +82,21 @@ Les composants sous forme de classe et ceux anonymes.
 
  Cependant, si elle n'est pas gérée avec précaution, la mass assignationn peut entrainer  une vulnérabilité de 
  sécurité appelée "over-posting" ou "vulnérabilité de mass assignation".
+
+
+## Les étapes de création d'une notification
+1. créer une notification (sms, email, slack...)
+2. créer un évènement
+3. Dispatcher un évènement
+4. Créer un Event listener
+5. Lier l'Event Listener à l'évènement
+
+## php artisan make:notification NewChirp 
+Ce code permet de créer une notification
+
+## php artisan make:event ChirpCreatedEvent
+Permet de créer un évènement par rapport au notification
+
+## php artisan make:listener SendChirpCreatedNotification --event=ChirpCreatedEvent
+Permet de faire appel à l'écouteur, qui permet d'écouteur et d'envoyer la notification
+Dans le code de création il faut notifier l'évènement que l'écouteur doit écouter

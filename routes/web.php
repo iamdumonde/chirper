@@ -34,10 +34,10 @@ require __DIR__.'/auth.php';
 
 //Chirps
 Route::resource('chirps', ChirpController::class)
-            ->only('index', 'store')
+            ->only('index', 'store', 'edit', 'update', 'destroy')
             ->middleware(['auth', 'verified']);
 
 
 
 //
-Route::get('/change-language/{loclae}', [LanguageController::class, "changeLanguage"])->name("change.language");
+Route::get('/change-language/{locale}', [LanguageController::class, "changeLanguage"])->name("change.language");

@@ -12,8 +12,12 @@ class ChirpController extends Controller
      */
     public function index()
     {
+        // dd(User::all());
         //
-        return view("chirps.index");
+        return view("chirps.index", [
+            //ici j'ai un tableau associatif avec une clé et une valeur
+            'chirps' => Chirp::orderBy('created_at', 'DESC')->get()
+        ]); //chirps en simple guillemet ici est utilisé pour afficher les éléments dans le view
     }
 
     /**
@@ -25,15 +29,60 @@ class ChirpController extends Controller
         $validated = $request->validate([
             'message' => 'required|string|max:255',
         ]);
-        
+
         //envoi des données au BDD
         $request->user()->chirps()->create($validated);
-        
+
         //rediriger sur chirps.index
         return redirect(route('chirps.index'));
-        
+
         // dd($validated);
         // dd($request->user());
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     * Permet de montrer le formulaire quand on veut éditer
+     */
+    public function edit(Chirp $chirp)
+    {
+        //
+        // dd('En cours d\édition ');
+        return view('chirps.edit', ['chirp' => $chirp]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Chirp $chirp)
+    {
+        //vérifier que l'utlisateur à l'autorisation de mise à jour de commentaires
+        $this->authorize('update', $chirp);
+
+        // dd('Mise à jour en cours');
+        $validated = $request->validate([
+            'message' => 'required|string|max:255',
+        ]); //validation des données
+
+        $chirp->update($validated); //mise à jour
+
+        return redirect(route('chirps.index')); //redirection
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Chirp $chirp)
+    {
+        //vérifier l'autorisation de l'utiliateur
+        $this->authorize('delete', $chirp);
+
+        //supprimer la ressource
+        $chirp->delete();
+
+        //rediriger vers la page des commentaires
+        return redirect(route('chirps.index'));
     }
 
     /**
@@ -52,27 +101,4 @@ class ChirpController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Chirp $chirp)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Chirp $chirp)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Chirp $chirp)
-    {
-        //
-    }
 }
