@@ -76,7 +76,7 @@ Les composants sous forme de classe et ceux anonymes.
 
  ## La Masse assignation
  La mass assignation est une technique qui permet de définir plusieurs attributs d'un media en une seule fois. 
- Par exemple, imaginez que vous avez un modèle  `Utlilsateur` avec des champs tels que `nom`, `email`, et `rôle` . 
+ Par exemple, imaginez que vous avez un modèle  `Utilisateur` avec des champs tels que `nom`, `email`, et `rôle` . 
  La mass assignation permet de définir tous ces champs en une fois, ce qui peut être très pratique et vous faire 
  gagner du temps.
 
