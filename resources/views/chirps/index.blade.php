@@ -5,7 +5,7 @@
     {{-- Component alerte --}}
     <x-alert :color="'bg-yellow-500'" :message="'Vous n\'avez pas saisi le nom d\'utilisateur'" />
     <x-alert :color="'bg-indigo-700'" :message="'Ce champ est requis'" />
-
+    
     {{-- Component Card --}}
     <x-card>
         <h3>Titre de la carte n*1</h3>
